@@ -20,19 +20,19 @@ class BlogSeeder extends Seeder
 
         Blog::factory()->count(10)->create(); //buat bikin data dummy
 
-        // DB::table('blogs')->insert([
-        //     'title' => 'Nadia',
-        //     'description' => 'Cantik nyoooo'
-        // ]);
+        DB::table('blogs')->insert([
+            'title' => 'Nadia',
+            'description' => 'Cantik nyoooo'
+        ]);
 
-        // DB::table('blogs')->insert([
-        //     'title' => 'Fikri',
-        //     'description' => 'Ganteng nyoooo'
-        // ]);
+        DB::table('blogs')->insert([
+            'title' => 'Fikri',
+            'description' => 'Ganteng nyoooo'
+        ]);
 
-        // DB::table('blogs')->insert([
-        //     'title' => 'Haashim',
-        //     'description' => 'Ganteng nyoooo'
-        // ]);
+        DB::table('blogs')->insert([
+            'title' => 'Haashim',
+            'description' => 'Ganteng nyoooo'
+        ]);
     }
 }
