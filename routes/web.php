@@ -8,29 +8,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', function () {
+Route::get('/blog', [BlogController::class, 'index']); // buat manggil controller
 
-    // semisal ambil data dari database
-    $profile = 'aku programmer jago';
-    return view('blog', ['intro' => $profile]);
-})-> named('blog');
 
-Route::get('/blog/{id}', function ($id) {
-    return 'ini adalah blog '. $id;
-});
 
-Route::get('/blog', [BlogController::class, 'index']);
 
-Route::get('/blog/{id}', function (Request $request,$id){
 
-    return 'ini adalah blog '.$request->id;
-});
 
-// route::get('/blog/{id}', function (Request $request,$id){
+// Route::get('/blog', function () {
 
-//     //anggap aja kita update data
-//     return redirect()->route('blog');
+//     // semisal ambil data dari database
+//     $profile = 'aku programmer jago';
+//     return view('blog', ['intro' => $profile]);
+// })-> named('blog');
+
+// Route::get('/blog/{id}', function ($id) {
+//     return 'ini adalah blog '. $id;
 // });
 
 
+// Route::get('/blog/{id}', function (Request $request,$id){
 
+//     return 'ini adalah blog '.$request->id;
+// });
+
+// // route::get('/blog/{id}', function (Request $request,$id){
+
+// //     //anggap aja kita update data
+// //     return redirect()->route('blog');
+// // });

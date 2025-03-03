@@ -18,7 +18,7 @@ class BlogSeeder extends Seeder
 
         DB::table('blogs')->truncate();
 
-        Blog::factory()->count(10)->create(); //buat bikin data dummy
+        Blog::factory()->count(47)->create(); //buat bikin data dummy
 
         DB::table('blogs')->insert([
             'title' => 'Nadia',
