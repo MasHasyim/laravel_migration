@@ -13,15 +13,12 @@ class BlogController extends Controller
     function index(Request $request)
     {
         $title = $request->title;
-        $blogs = DB::table('blogs')->where('title', 'like', '%' . $title . '%')->Paginate(15);
+        $blogs = DB::table('blogs')->where('title', 'like', '%' . $title . '%')->orderBy('id','desc')->Paginate(15);
 
-        return view('blog', ['blogs' => $blogs,'title'=> $title]);
+        return view('blog', ['blogs' => $blogs, 'title' => $title]);
 
         // return $blogs;
         // dd($blogs);   // buat debugging (biar terlihat lebih jelas query sql-nya pas diwebnya)
-
-
-
 
         // return view('blog', ['intro' => 'anjuayy']);
         // $blogs = Blog::all();
@@ -33,6 +30,35 @@ class BlogController extends Controller
         // return view('blog', ['blogs' => $blogs, 'title' => $title]);
         // return $blogs;
     }
+    function add()
+    {
+        return view('blog-add');
+    }
+
+    function create(Request $request)
+    {   
+        $validated = $request->validate([
+            'title' => 'required|unique:blogs|max:255',
+            'description' => 'required',
+        ]);
+        DB::table('blogs')->insert([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+
+        Session::flash('message', 'New Blog Succesfully Added!');
+
+        return redirect()->route('blog');
+    }   
+
+
+    function show($id)
+    {
+        $blog = DB::table('blogs')->where('id',$id)->first();
+        return view('blog-detail', ['blog' => $blog]);
+    }
+
+
 
     // function create(Request $request)
     // {

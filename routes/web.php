@@ -8,8 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', [BlogController::class, 'index']); // buat manggil controller
+Route::get('/blog', [BlogController::class, 'index'])->name('blog'); // buat manggil controller
+Route::get('/blog/add',[BlogController::class, 'add']); // ngehubungi blog-add blade
+Route::post('/blog/create', [BlogController::class,'create']); //add&create blog
 
+
+Route::get('/blog/{id}/detail', [BlogController::class,'show']);
 
 
 

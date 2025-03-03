@@ -13,14 +13,22 @@
     <div class="container">
         <div class="mt-5">
             <h1 class="text-center">Blog list </h1>
-            <div class="table-responsive mt-5">
+
+            @if (Session::has('message'))
+                <p class="alert alert-success mt-2 mb-2">{{ Session::get('message') }}</p>
+            @endif
+
+            <div class="table-responsive mt-2">
+                <a href="{{ url('/blog/add') }}" class="btn btn-primary mb-3">Add New</a>
+
                 <form method="GET">
                     <div class="input-group mb-3">
-                        <input type="text" name="title" value={{ $title }} class="form-control"
-                            placeholder="Search Title" aria-label="Search Title" aria-describedby="button-addon2">
+                        <input type="text" name="title" value="{{ request('title') }}" placeholder="Search Title"
+                            class="form-control" aria-label="Search Title" aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
                     </div>
                 </form>
+
                 <table class="table">
                     <thead class="table-dark">
                         <th>#</th>
@@ -39,7 +47,7 @@
                             <tr></tr>
                             <td>{{ ($blogs->currentpage() - 1) * $blogs->perpage() + $loop->index + 1 }}</td>
                             <td>{{ $blog->title }}</td>
-                            <td>edit | delete</td>
+                            <td><a href="{{url('blog/'.$blog->id.'/detail')}}">view</a> | edit | delete</td>
                         @endforeach
                     </tbody>
                 </table>
