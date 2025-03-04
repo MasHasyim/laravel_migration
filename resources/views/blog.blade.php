@@ -15,7 +15,7 @@
             <h1 class="text-center">Blog list </h1>
 
             @if (Session::has('message'))
-                <p class="alert alert-success mt-2 mb-2">{{ Session::get('message') }}</p>
+                <p class="alert {{ Session::get('alert-class') }} mt-2 mb-2">{{ Session::get('message') }}</p>
             @endif
 
             <div class="table-responsive mt-2">
@@ -47,7 +47,9 @@
                             <tr></tr>
                             <td>{{ ($blogs->currentpage() - 1) * $blogs->perpage() + $loop->index + 1 }}</td>
                             <td>{{ $blog->title }}</td>
-                            <td><a href="{{url('blog/'.$blog->id.'/detail')}}">view</a> | edit | delete</td>
+                            <td><a href="{{ url('blog/' . $blog->id . '/detail') }}">view</a> | <a
+                                    href="{{ url('blog/' . $blog->id . '/edit') }}">edit</a> | <a
+                                    href="{{ url('blog/' . $blog->id . '/delete') }}">delete</a></td>
                         @endforeach
                     </tbody>
                 </table>

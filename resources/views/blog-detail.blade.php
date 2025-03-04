@@ -24,6 +24,9 @@
                     <div>{{ $blog->created_at }}</div>
                     <div>by admin</div>
                 </div>
+                <div>
+                    <a href="{{ url('/blog') }}" class="btn btn-secondary mb-1">Back</a>
+                </div>
             </div>
         </div>
     </div>
