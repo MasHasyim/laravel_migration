@@ -76,11 +76,8 @@ class BlogController extends Controller
 
 
         //Eloquent
-        $blog= Blog::findorfail($id); // mencari data dan sekaligus menampilkan 404 not found jika data tdk ditemukan
+        $blog = Blog::with(['comments', 'tags'])->findorfail($id); // mencari data dan sekaligus menampilkan 404 not found jika data tdk ditemukan
         // $blog= Blog::find($id)->first;
-
-
-
         return view('blog-detail', ['blog' => $blog]);
     }
 
@@ -106,10 +103,23 @@ class BlogController extends Controller
             'description' => 'required',
         ]);
 
-        DB::table('blogs')->where('id', $id)->update([
-            'title' => $request->title,
-            'description' => $request->description
-        ]);
+        // Query Builder
+        // DB::table('blogs')->where('id', $id)->update([
+        //     'title' => $request->title,
+        //     'description' => $request->description
+        // ]);
+
+
+        //Elloquent dan mass assignment
+        $blog = Blog::findOrFail($id);
+        $blog->update($request->all());
+
+        //Elloquent tapi tidak mass assignment (variabel dan pilot tdk sama)
+        // $blog = new Blog;
+        // $blog->title = $request->title;
+        // $blog->description = $request->keterangan;
+        // $blog->save();  
+
         Session::flash('message', 'Blog Succesfully Updated!');
         Session::flash('alert-class', 'alert-info');
         return redirect()->route('blog');
@@ -117,10 +127,20 @@ class BlogController extends Controller
 
     function delete($id)
     {
-        $blog = DB::table('blogs')->where('id', $id)->delete();
+        //Query builder
+        // $blog = DB::table('blogs')->where('id', $id)->delete();
+
+        //Elloquent
+        Blog::findOrFail($id)->delete();
+
         Session::flash('message', 'Blog Succesfully delete');
         Session::flash('alert-class', 'alert-danger');
         return redirect()->route('blog');
+    }
+
+    function restore($id)
+    {
+        $blog = Blog::withTrashed()->findOrFail($id)->restore();
     }
 
 
